@@ -1,0 +1,14 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/TheWendril/Calculator.git",
+  "author": "TheWendril <wendril2001avila@alu.ufc.br>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3"
+  }
+}
