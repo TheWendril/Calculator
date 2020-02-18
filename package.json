@@ -6,9 +6,13 @@
   "author": "TheWendril <wendril2001avila@alu.ufc.br>",
   "license": "MIT",
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "comp": "babel index.js -o bundle.js -w"
   },
   "dependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.4"
   }
 }

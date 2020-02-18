@@ -1,30 +1,17 @@
+class realizar_Operacoes{
 
-    function quantidade_De_Parentese(text){
-        
-
-     var contador = 0;
-
-        for(item of text){
-            if(item === '('){
-                contador++;
-            }
-        }
+    constructor(){
+        var vetor = [1,2,4,5,6];
+        const result = document.querySelector('.result');
+        console.log(vetor);
     }
 
-
-    function resolver_Parenteses(...params){
+    redenrizar(...params){
+        this.result.innerHTML = '';
         
     }
-
-const input = document.querySelector('input');
-const buttom = document.querySelector('button');
-
-
-buttom.onclick = () => {
-
-var text = input.value;
-
-    
-      
 
 }
+
+
+
