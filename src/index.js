@@ -63,11 +63,15 @@ function setarAtributosOperats(){
 
         if(valor != '='){
             operats[i].addEventListener('click', () => {
+            var {tipo} = vetor_expressao[vetor_expressao.length - 1];
+                if(tipo !== 'operador')
+                {
                     vetor_expressao.push({
                         valor: valor,
                         tipo: 'operador',
                     });
                     redenrizar();
+                }
                 });
             }
 
@@ -93,7 +97,7 @@ function setarAtributos(){
         }); 
     }
 
-    setarAtributosOperats();
+    setarAtriconst     console.log('teste');butosOperats();
 
 }
 
