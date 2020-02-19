@@ -4,6 +4,8 @@ const painel = document.querySelector('.result');
 
 const botoes = document.querySelectorAll('.btn_num');
 
+const btn_clear = document.querySelector('.btn_clear');
+
 const operats = document.querySelectorAll('.btn_operat'); 
 
 console.log(operats);
@@ -18,7 +20,9 @@ function redenrizar(){
     painel.innerHTML = '';
 
     for(var i = 0; i < vetor_expressao.length; i++){
-        var text = document.createTextNode(vetor_expressao[i]);
+        const {valor} = vetor_expressao[i];
+
+        var text = document.createTextNode(valor);
         painel.appendChild(text);
     }
 }
@@ -30,7 +34,24 @@ function addPainel(valor){
 }
 
 function resolverPainel(){
-    console.log('continuar daqui');
+    
+    for(var i = 0; i < vetor_expressao.length; i++){
+
+        if(vetor_expressao[i] === '+'){
+
+        
+
+        }
+
+        else if(vetor_expressao[i] === '-'){
+
+
+
+        }
+
+
+    }
+
 }
 
 
@@ -42,7 +63,10 @@ function setarAtributosOperats(){
 
         if(valor != '='){
             operats[i].addEventListener('click', () => {
-                    vetor_expressao.push(valor);
+                    vetor_expressao.push({
+                        valor: valor,
+                        tipo: 'operador',
+                    });
                     redenrizar();
                 });
             }
@@ -60,7 +84,13 @@ function setarAtributos(){
 
         const valor = botoes[i].innerHTML;
 
-        botoes[i].setAttribute('onclick', 'addPainel(' + valor + ')'); 
+        botoes[i].addEventListener('click', () => {
+            vetor_expressao.push({
+                valor: valor,
+                tipo: 'numero',
+            });
+            redenrizar();
+        }); 
     }
 
     setarAtributosOperats();
@@ -68,4 +98,11 @@ function setarAtributos(){
 }
 
 
-setarAtributos();
+setarAtributos(); 
+
+
+btn_clear.onclick = () =>{
+
+    vetor_expressao.splice(0, vetor_expressao.length);
+    redenrizar();
+}
