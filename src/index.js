@@ -64,7 +64,7 @@ function setarAtributosOperats(){
         if(valor != '='){
             operats[i].addEventListener('click', () => {
             var {tipo} = vetor_expressao[vetor_expressao.length - 1];
-                if(tipo !== 'operador')
+                if(vetor_expressao.length != 0 && tipo !== 'operador')
                 {
                     vetor_expressao.push({
                         valor: valor,
@@ -97,7 +97,7 @@ function setarAtributos(){
         }); 
     }
 
-    setarAtriconst     console.log('teste');butosOperats();
+    setarAtributosOperats();
 
 }
 
