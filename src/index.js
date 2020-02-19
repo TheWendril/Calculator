@@ -8,8 +8,6 @@ const btn_clear = document.querySelector('.btn_clear');
 
 const operats = document.querySelectorAll('.btn_operat'); 
 
-console.log(operats);
-console.log(botoes);
 
 function resolverPainel(){
     
@@ -34,24 +32,30 @@ function addPainel(valor){
 }
 
 function resolverPainel(){
-    
-    for(var i = 0; i < vetor_expressao.length; i++){
 
-        if(vetor_expressao[i] === '+'){
+var vetor_de_posicoes = [];
 
-        
+    for(let i = 0; i < vetor_expressao.lenght; i++){
+        var {tipo, valor} = vetor_expressao[i];
 
-        }
+            if(tipo == 'operador'){
+                if(valor === '*' || valor === '/'){
 
-        else if(vetor_expressao[i] === '-'){
+                    vetor_de_posicoes.push(i);
 
+                    console.log(`Mult or div: ${i}`);
+                }
+                if(valor === '+' || valor === '-'){
 
+                    vetor_de_posicoes.push(i);
+                    
+                    console.log(`Sum or Sub: ${i}`);
 
-        }
-
-
+                }
+            }
     }
 
+    console.log(vetor_de_posicoes);
 }
 
 
@@ -63,8 +67,13 @@ function setarAtributosOperats(){
 
         if(valor != '='){
             operats[i].addEventListener('click', () => {
-            var {tipo} = vetor_expressao[vetor_expressao.length - 1];
-                if(vetor_expressao.length != 0 && tipo !== 'operador')
+
+                if(vetor_expressao.length > 0)
+                {
+                var {tipo} = vetor_expressao[vetor_expressao.length - 1];
+                }
+            
+                if(vetor_expressao.length !== 0 && tipo !== 'operador')
                 {
                     vetor_expressao.push({
                         valor: valor,
@@ -76,7 +85,9 @@ function setarAtributosOperats(){
             }
 
         if(valor == '='){
-            operats[i].addEventListener('click', () => {resolverPainel()});
+            operats[i].addEventListener('click', () => {
+                resolverPainel();
+            });
             }   
     }
 
