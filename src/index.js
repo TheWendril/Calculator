@@ -29,28 +29,41 @@ function addPainel(valor){
     redenrizar();
 }
 
+function resolverPainel(){
+    console.log('continuar daqui');
+}
+
+
+
+function setarAtributosOperats(){
+    for(var i = 0; i < operats.length; i++){
+        const valor = operats[i].innerHTML;
+        
+
+        if(valor != '='){
+            operats[i].addEventListener('click', () => {
+                    vetor_expressao.push(valor);
+                    redenrizar();
+                });
+            }
+
+        if(valor == '='){
+            operats[i].addEventListener('click', () => {resolverPainel()});
+            }   
+    }
+
+}
 
 function setarAtributos(){
 
     for(var i = 0; i < botoes.length; i++){
 
-        var valor = botoes[i].innerHTML;
+        const valor = botoes[i].innerHTML;
 
         botoes[i].setAttribute('onclick', 'addPainel(' + valor + ')'); 
     }
 
-    for(var i = 0; i < operats.length; i++){
-        var valor = operats[i].innerHTML;
-        
-
-        if(valor != '='){
-            operats[i].setAttribute('onclick', 'addPainel(' +valor+ ')');
-            }
-
-        if(valor == '='){
-            operats[i].setAttribute('onclick', 'resolverPainel()');
-            }   
-    }
+    setarAtributosOperats();
 
 }
 
