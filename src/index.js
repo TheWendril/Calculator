@@ -9,20 +9,76 @@ const btn_clear = document.querySelector('.btn_clear');
 const operats = document.querySelectorAll('.btn_operat'); 
 
 
-function resolverPainel(){
-    
+function resolverPrioridades(vetor){
+
+var total_prioridades = vetor.length;
+
+
+    for(var i = 0; i < total_prioridades; i++){
+
+        console.log(`Resolver prioridade de local${vetor[i]}`);
+
+        if(vetor_expressao[vetor[i]].valor === '*'){
+
+            //COMEÇAR AQUI O DESENVOLVIMENTO BRUTO MSM 
+            vetor_expressao[vetor[i] - 1].valor = vetor_expressao[vetor[i] - 1].valor * vetor_expressao[vetor[i] + 1].valor;
+            console.log(vetor_expressao[vetor[i] - 1]);
+
+            vetor_expressao.splice(vetor[i], 2);
+
+            redenrizar();
+
+        }
+
+
+
+    }
+
+
 }
+
+
+function error(){
+    vetor_expressao.splice(0, vetor_expressao.length);
+
+    painel.innerHTML = '';
+
+    vetor_expressao.push({ valor: 'error', tipo: 'numero'});
+
+    painel.innerHTML = vetor_expressao[0].valor;
+}
+
+
 
 
 function redenrizar(){
     painel.innerHTML = '';
+
+var undefineds = 0;
+
+
+
 
     for(var i = 0; i < vetor_expressao.length; i++){
         const {valor} = vetor_expressao[i];
 
         var text = document.createTextNode(valor);
         painel.appendChild(text);
+
+        if(vetor_expressao[i].valor === undefined)
+        {
+            undefineds++;
+        }
+
     }
+
+    if(undefineds > 0){
+
+        error();
+
+    }
+
+
 }
 
 
@@ -31,31 +87,31 @@ function addPainel(valor){
     redenrizar();
 }
 
+
 function resolverPainel(){
 
-var vetor_de_posicoes = [];
+var contador_de_operacoes = [];
+var contador_de_prioridades = [];
 
-    for(let i = 0; i < vetor_expressao.lenght; i++){
-        var {tipo, valor} = vetor_expressao[i];
+    for(var i = 0; i < vetor_expressao.length; i++){
 
-            if(tipo == 'operador'){
-                if(valor === '*' || valor === '/'){
+        if(vetor_expressao[i].tipo == 'operador' && (vetor_expressao[i].valor == '+' || vetor_expressao[i].valor == '-' ) ){
+            contador_de_operacoes.push(i);
+        }
+    }
+    
 
-                    vetor_de_posicoes.push(i);
+    for(i = 0; i < vetor_expressao.length; i++){
 
-                    console.log(`Mult or div: ${i}`);
-                }
-                if(valor === '+' || valor === '-'){
+        if(vetor_expressao[i].tipo == 'operador' && (vetor_expressao[i].valor == '*' || vetor_expressao[i].valor == '/')){
+            contador_de_prioridades.push(i);
+        }
 
-                    vetor_de_posicoes.push(i);
-                    
-                    console.log(`Sum or Sub: ${i}`);
-
-                }
-            }
     }
 
-    console.log(vetor_de_posicoes);
+
+    resolverPrioridades(contador_de_prioridades);
+    
 }
 
 
@@ -95,20 +151,28 @@ function setarAtributosOperats(){
 
 function setarAtributos(){
 
-    for(var i = 0; i < botoes.length; i++){
 
-        const valor = botoes[i].innerHTML;
+            for(var i = 0; i < botoes.length; i++){
 
-        botoes[i].addEventListener('click', () => {
-            vetor_expressao.push({
-                valor: valor,
-                tipo: 'numero',
-            });
-            redenrizar();
-        }); 
-    }
+                const valor = parseInt(botoes[i].innerHTML, 10);
 
-    setarAtributosOperats();
+                botoes[i].addEventListener('click', () => {
+
+                    vetor_expressao.push(
+                        {
+                        valor: valor,
+                        tipo: 'numero',
+                        }
+                    );
+
+
+                redenrizar();
+
+                }
+                ); 
+
+            setarAtributosOperats();
+        }
 
 }
 
@@ -116,8 +180,10 @@ function setarAtributos(){
 setarAtributos(); 
 
 
-btn_clear.onclick = () =>{
+btn_clear.onclick = () => {
 
     vetor_expressao.splice(0, vetor_expressao.length);
     redenrizar();
+    console.log(vetor_expressao);
 }
+
