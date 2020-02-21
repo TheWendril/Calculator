@@ -9,6 +9,41 @@ const btn_clear = document.querySelector('.btn_clear');
 const operats = document.querySelectorAll('.btn_operat'); 
 
 
+
+
+
+function coletar_Esq(centro){
+
+var acumulador = 0;
+
+var i = centro - 1;
+
+
+
+var potencia = 0;
+
+    do{
+ 
+        if(vetor_expressao[i].tipo == 'numero'){
+            acumulador += vetor_expressao[i].valor * Math.pow(10, potencia);
+            i--;
+            potencia++;
+
+        }
+  
+    }while(i >= 0 && vetor_expressao[i].tipo != 'operador');
+
+    vetor_expressao.splice(centro - potencia - 1, potencia - 1);
+
+    vetor_expressao[centro - potencia].valor = acumulador 
+
+    return acumulador;
+}
+
+
+
+
+
 function resolverPrioridades(vetor){
 
 var total_prioridades = vetor.length;
@@ -16,12 +51,24 @@ var total_prioridades = vetor.length;
 
     for(var i = 0; i < total_prioridades; i++){
 
-        console.log(`Resolver prioridade de local${vetor[i]}`);
+        
 
         if(vetor_expressao[vetor[i]].valor === '*'){
 
             //COMEÇAR AQUI O DESENVOLVIMENTO BRUTO MSM 
             vetor_expressao[vetor[i] - 1].valor = vetor_expressao[vetor[i] - 1].valor * vetor_expressao[vetor[i] + 1].valor;
+            console.log(vetor_expressao[vetor[i] - 1].valor);
+
+            vetor_expressao.splice(vetor[i], 2);
+
+            redenrizar();
+
+        }
+
+        else if(vetor_expressao[vetor[i]].valor === '/'){
+
+            //COMEÇAR AQUI O DESENVOLVIMENTO BRUTO MSM 
+            vetor_expressao[vetor[i] - 1].valor = vetor_expressao[vetor[i] - 1].valor / vetor_expressao[vetor[i] + 1].valor;
             console.log(vetor_expressao[vetor[i] - 1]);
 
             vetor_expressao.splice(vetor[i], 2);
@@ -88,6 +135,49 @@ function addPainel(valor){
 }
 
 
+
+function resolver_operacoes(vetor){
+
+    var total_prioridades = vetor.length;
+
+
+
+    for(var i = 0; i < total_prioridades; i++){
+
+
+
+        if(vetor_expressao[vetor[i]].valor === '+'){
+
+
+            //COMEÇAR AQUI O DESENVOLVIMENTO BRUTO MSM 
+
+
+            vetor_expressao[vetor[i] - 1].valor = vetor_expressao[vetor[i] - 1].valor + vetor_expressao[vetor[i] + 1].valor;
+      
+            vetor_expressao.splice(vetor[i], 2);
+
+            redenrizar();
+
+        }
+
+        else if(vetor_expressao[vetor[i]].valor === '-'){
+
+            //COMEÇAR AQUI O DESENVOLVIMENTO BRUTO MSM 
+            vetor_expressao[vetor[i] - 1].valor = vetor_expressao[vetor[i] - 1].valor - vetor_expressao[vetor[i] + 1].valor;
+            console.log(vetor_expressao[vetor[i] - 1]);
+
+            vetor_expressao.splice(vetor[i], 2);
+
+            redenrizar();
+
+        }
+
+
+
+    }
+}
+
+
 function resolverPainel(){
 
 var contador_de_operacoes = [];
@@ -110,8 +200,13 @@ var contador_de_prioridades = [];
     }
 
 
-    resolverPrioridades(contador_de_prioridades);
-    
+    if(contador_de_prioridades.length > 0){
+        resolverPrioridades(contador_de_prioridades);
+    }
+
+    if(contador_de_operacoes.length > 0){
+        resolver_operacoes(contador_de_operacoes);
+    }
 }
 
 
